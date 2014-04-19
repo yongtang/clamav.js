@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Clamavjs : A node.js library for ClamAV" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Clamavjs</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/yotang/clamavjs">View on GitHub</a>
+
+          <h1 id="project_title">Clamavjs</h1>
+          <h2 id="project_tagline">A node.js library for ClamAV</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/yotang/clamavjs/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/yotang/clamavjs/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="clamavjs" class="anchor" href="#clamavjs"><span class="octicon octicon-link"></span></a>clamavjs</h1>
+
+<h2>
+<a name="a-nodejs-library-for-clamav" class="anchor" href="#a-nodejs-library-for-clamav"><span class="octicon octicon-link"></span></a>A node.js library for ClamAV</h2>
+
+<p>This node.js library is intended to be served as a bridge between a node.js application and the ClamAV antivirus engine.</p>
+
+<p>The library uses TCP socket (INET) to communicate with ClamAV daemon (clamd) through ClamAV's INSTREAM command. To use clamavjs library, use the following:</p>
+
+<pre><code>clamavjs=require('clamavjs');
+clamav = new clamavjs(3310, '127.0.0.1');
+clamav.scan('&lt;directory&gt;', function(filename, malicious, err) {
+    if (malicious) {
+        console.log(filename+': '+malicious+' FOUND');
+    }
+    else if (err) {
+        console.log(filename+': '+err);
+    }
+    else {
+        console.log(filename+': OK');
+    }
+});
+</code></pre>
+
+<p>will scan through the "directory" of a Linux machine and report any malicious files detected by ClamAV.</p>
+
+<h2>
+<a name="performance" class="anchor" href="#performance"><span class="octicon octicon-link"></span></a>Performance</h2>
+
+<p>The clamavjs library is implemented in an asynchronous way. That is supposed to perform better when I/O is the bottleneck.</p>
+
+<h2>
+<a name="contact" class="anchor" href="#contact"><span class="octicon octicon-link"></span></a>Contact</h2>
+
+<p>If you have trouble with the library or have questions, check out the GitHub repository at <a href="http://github.com/yotang/clamavjs">http://github.com/yotang/clamavjs</a> and I’ll help you sort it out.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Clamavjs maintained by <a href="https://github.com/yotang">yotang</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
