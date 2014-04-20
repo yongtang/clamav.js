@@ -1,7 +1,16 @@
 {
   "name": "clamavjs",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A node.js library for ClamAV.",
+  "keywords": [
+    "clamavjs",
+    "clamav",
+    "clamd",
+    "daemon",
+    "virus",
+    "scan",
+    "node.js"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"No test\" && exit 0"

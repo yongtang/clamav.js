@@ -32,6 +32,10 @@ Performance
 -----------
 The clamavjs library is implemented in an asynchronous way. That is supposed to perform better when I/O is the bottleneck.
 
+License
+-----------
+The clamavjs library is provided under the MIT License.
+
 Contact
 -------
 If you have trouble with the library or have questions, check out the GitHub repository at http://github.com/yotang/clamavjs and I’ll help you sort it out.
