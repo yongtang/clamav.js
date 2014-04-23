@@ -1,9 +1,9 @@
 {
-  "name": "clamavjs",
-  "version": "0.3.0",
+  "name": "clamav.js",
+  "version": "0.4.0",
   "description": "A node.js library for ClamAV.",
   "keywords": [
-    "clamavjs",
+    "clamav.js",
     "clamav",
     "clamd",
     "daemon",
@@ -17,11 +17,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yotang/clamavjs.git"
+    "url": "https://github.com/yotang/clamav.js.git"
   },
   "author": "yotang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yotang/clamavjs/issues"
+    "url": "https://github.com/yotang/clamav.js/issues"
   }
 }

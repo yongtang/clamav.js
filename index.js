@@ -2,21 +2,16 @@ var fs = require('fs');
 var net = require('net');
 var path = require('path');
 
-function clamavjs(port, host) {
-  this.port = port ? port : 3310;
-  this.host = host ? host : 'localhost';
-}
-
-clamavjsscan = function(port, host, pathname, callback) {
+clamavscan = function(port, host, pathname, callback) {
   pathname = path.normalize(pathname);
   fs.stat(pathname, function(err, stats) {
     if (err) {
-      callback(pathname, null, err);
+      callback(err, pathname);
     }
     else if (stats.isDirectory()) {
       fs.readdir(pathname, function(err, lists) {
         lists.forEach(function(entry) {
-          clamavjsscan(port, host, path.join(pathname, entry), callback);
+          clamavscan(port, host, path.join(pathname, entry), callback);
         });
       });
     }
@@ -46,18 +41,18 @@ clamavjsscan = function(port, host, pathname, callback) {
           status = status.substring(0, status.indexOf("\n"));
           var result = status.match(/^stream: (.+) FOUND$/);
           if (result !== null) {
-            callback(pathname, result[1], null);
+            callback(undefined, pathname, result[1]);
           }
           else if (status === 'stream: OK') {
-            callback(pathname, null, null);
+            callback(undefined, pathname);
           }
           else {
             result = status.match(/^(.+) ERROR/);
             if (result != null) {
-              callback(pathname, null, new Error(result[1]));
+              callback(new Error(result[1]), pathname);
             }
             else {
-              callback(pathname, null, new Error('Malformed Response['+status+']'));
+              callback(new Error('Malformed Response['+status+']'), pathname);
             }
           }
         }
@@ -66,16 +61,27 @@ clamavjsscan = function(port, host, pathname, callback) {
       }).on('close', function() {});
     }
     else if (err) {
-      callback(pathname, null, err);
+      callback(err, pathname);
     }
     else {
-      callback(pathname, null, new Error('Not a regular file or directory'));
+      callback(new Error('Not a regular file or directory'), pathname);
     }
   });
 }
 
-clamavjs.prototype.scan = function(pathname, callback) {
-  clamavjsscan(this.port, this.host, pathname, callback);
+function clamav() {
+
 }
 
-module.exports = clamavjs;
+clamav.prototype.createScanner = function (port, host) {
+  return {
+    "port": (port ? port : 3310),
+    "host": (host ? host : 'localhost'),
+    "scan": function(pathname, callback) {
+      clamavscan(this.port, this.host, pathname, callback);
+    }
+  };
+}
+
+module.exports = exports = new clamav();
+
