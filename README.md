@@ -9,7 +9,7 @@ This node.js library is intended to be served as a bridge between a node.js appl
 
 The library uses TCP socket (INET) to communicate with ClamAV daemon (clamd) through ClamAV's INSTREAM command. To use clamavjs library, use the following:
 
-```
+```js
 var clamav=require('clamav.js');
 
 clamav.createScanner(3310, '127.0.0.1').scan('<directory>', function(err, filename, malicious) {
