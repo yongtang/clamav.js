@@ -7,7 +7,7 @@ A node.js library for ClamAV
 
 This node.js library is intended to be served as a bridge between a node.js application and the ClamAV antivirus engine.
 
-The library uses TCP socket (INET) to communicate with ClamAV daemon (clamd) through ClamAV's INSTREAM command. To use clamavjs library, use the following:
+The library uses TCP socket (INET) to communicate with ClamAV daemon (clamd) through ClamAV's INSTREAM command. To use this library, use the following:
 
 ```js
 var clamav=require('clamav.js');
@@ -27,6 +27,25 @@ clamav.createScanner(3310, '127.0.0.1').scan('<directory>', function(err, filena
 ```
 
 will scan through the "directory" of a Linux machine and report any malicious files detected by ClamAV.
+
+Additionally, to check the availability of the ClamAV daemon, use the following:
+
+```js
+var clamav=require('clamav.js');
+
+clamav.ping(3310, '127.0.0.1', 1000, function(err) {
+  if (err) {
+    console.log('127.0.0.1:3310 is not available['+err+']');
+  }
+  else {
+    console.log('127.0.0.1:3310 is alive');
+  }
+});
+
+```
+
+where the third parameter 1000 is the timeout in milliseconds.
+
 
 Installation
 -----------

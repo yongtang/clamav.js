@@ -83,5 +83,33 @@ clamav.prototype.createScanner = function (port, host) {
   };
 }
 
+clamav.prototype.ping = function(port, host, timeout, callback) {
+  var status = '';
+  var socket = new net.Socket();
+  socket.setTimeout(timeout);
+  socket.connect(port, host, function() {
+    socket.write("nPING\n");
+  }).on('data', function(data) {
+    status += data;
+    if (data.toString().indexOf("\n") !== -1) {
+      socket.destroy();
+      status = status.substring(0, status.indexOf("\n"));
+      if (status === 'PONG') {
+        callback();
+      }
+      else {
+        socket.destroy();
+        callback(new Error('Invalid response('+status+')'));
+      }
+    }
+  }).on('error', function(err) {
+    socket.destroy();
+    callback(err);
+  }).on('timeout', function() {
+    socket.destroy();
+    callback(new Error('Socket connection timeout'));
+  }).on('close', function() {});
+}
+
 module.exports = exports = new clamav();
 
