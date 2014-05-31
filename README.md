@@ -12,7 +12,8 @@ The library uses TCP socket (INET) to communicate with ClamAV daemon (clamd) thr
 ```js
 var clamav=require('clamav.js');
 
-clamav.createScanner(3310, '127.0.0.1').scan('<directory>', function(err, filename, malicious) {
+clamav.createScanner(3310, '127.0.0.1').scan('<directory>'
+    , function(err, filename, malicious) {
   if (err) {
     console.log(filename+': '+err);
   }
