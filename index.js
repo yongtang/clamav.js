@@ -1,6 +1,38 @@
 var fs = require('fs');
 var net = require('net');
 var path = require('path');
+var util = require('util');
+var Transform = require('stream').Transform;
+util.inherits(ClamAVChannel, Transform);
+
+function ClamAVChannel(options) {
+  if (!(this instanceof ClamAVChannel))
+    return new ClamAVChannel(options);
+
+  Transform.call(this, options);
+  this._inBody = false;
+}
+ClamAVChannel.prototype._transform = function(chunk, encoding, callback) {
+  if (!this._inBody) {
+    this.push("nINSTREAM\n");
+    this._inBody = true;
+  }
+
+  var size = new Buffer(4);
+  size.writeInt32BE(chunk.length, 0);
+  this.push(size);
+  this.push(chunk);
+
+  callback();
+};
+ClamAVChannel.prototype._flush = function (callback) {
+  var size = new Buffer(4);
+  size = new Buffer(4);
+  size.writeInt32BE(0, 0);
+  this.push(size);
+
+  callback();
+};
 
 clamavscan = function(port, host, pathname, callback) {
   pathname = path.normalize(pathname);
@@ -17,20 +49,12 @@ clamavscan = function(port, host, pathname, callback) {
     }
     else if (stats.isFile()) {
       var socket = new net.Socket();
-      var stream = fs.createReadStream(pathname);
       var status = '';
       socket.connect(port, host, function() {
-        socket.write("nINSTREAM\n");
-        stream.on('data', function(data) {
-          var size = new Buffer(4);
-          size.writeInt32BE(data.length, 0);
-          socket.write(size);
-          socket.write(data);
-        }).on('end', function() {
+        var channel = new ClamAVChannel();
+        var stream = fs.createReadStream(pathname);
+        stream.pipe(channel).pipe(socket).on('end', function() {
           stream.destroy();
-          var size = new Buffer(4);
-          size.writeInt32BE(0, 0);
-          socket.write(size);
         }).on('error', function(err) {
           stream.destroy();
         });

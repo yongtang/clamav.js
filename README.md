@@ -58,7 +58,7 @@ $npm install clamav.js
 
 Performance
 -----------
-The ClamAV.js library is implemented in an asynchronous way. That is supposed to perform better when I/O is the bottleneck.
+The ClamAV.js library is implemented in an asynchronous way by utilizing transform stream of node.js. That is supposed to perform better when I/O is the bottleneck.
 
 License
 -----------
