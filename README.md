@@ -13,21 +13,43 @@ The library uses TCP socket (INET) to communicate with ClamAV daemon (clamd) thr
 var clamav=require('clamav.js');
 
 clamav.createScanner(3310, '127.0.0.1').scan('<directory>'
-    , function(err, filename, malicious) {
+    , function(err, object, malicious) {
   if (err) {
-    console.log(filename+': '+err);
+    console.log(object+': '+err);
   }
   else if (malicious) {
-    console.log(filename+': '+malicious+' FOUND'); 
+    console.log(object+': '+malicious+' FOUND');
   }
   else {
-    console.log(filename+': OK');
+    console.log(object+': OK');
   }
 });
 
 ```
 
 will scan through the "directory" of a Linux machine and report any malicious files detected by ClamAV.
+
+```js
+var fs=require('fs);
+var clamav=require('clamav.js');
+
+var stream = fs.createReadStream('<file>');
+clamav.createScanner(3310, '127.0.0.1').scan(stream
+    , function(err, object, malicious) {
+  if (err) {
+    console.log(object.path+': '+err);
+  }
+  else if (malicious) {
+    console.log(object.path+': '+malicious+' FOUND');
+  }
+  else {
+    console.log(object.path+': OK');
+  }
+});
+
+```
+
+will pass a stream of "file" on a Linux machine and report any malicious files detected by ClamAV.
 
 Additionally, to check the availability of the ClamAV daemon, use the following:
 
