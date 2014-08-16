@@ -2,9 +2,9 @@
 <html>
 
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Clamavjs : A node.js library for ClamAV" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Clamavjs : A node.js library for ClamAV">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -43,21 +43,43 @@
 
 <div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">clamav</span><span class="o">=</span><span class="nx">require</span><span class="p">(</span><span class="s1">'clamav.js'</span><span class="p">);</span>
 
-<span class="nx">clamav</span><span class="p">.</span><span class="nx">createScanner</span><span class="p">(</span><span class="mi">3310</span><span class="p">,</span> <span class="s1">'127.0.0.1'</span><span class="p">).</span><span class="nx">scan</span><span class="p">(</span><span class="s1">'&lt;directory&gt;'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">filename</span><span class="p">,</span> <span class="nx">malicious</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">clamav</span><span class="p">.</span><span class="nx">createScanner</span><span class="p">(</span><span class="mi">3310</span><span class="p">,</span> <span class="s1">'127.0.0.1'</span><span class="p">).</span><span class="nx">scan</span><span class="p">(</span><span class="s1">'&lt;directory&gt;'</span>
+    <span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">object</span><span class="p">,</span> <span class="nx">malicious</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">filename</span><span class="o">+</span><span class="s1">': '</span><span class="o">+</span><span class="nx">err</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">object</span><span class="o">+</span><span class="s1">': '</span><span class="o">+</span><span class="nx">err</span><span class="p">);</span>
   <span class="p">}</span>
   <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">malicious</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">filename</span><span class="o">+</span><span class="s1">': '</span><span class="o">+</span><span class="nx">malicious</span><span class="o">+</span><span class="s1">' FOUND'</span><span class="p">);</span> 
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">object</span><span class="o">+</span><span class="s1">': '</span><span class="o">+</span><span class="nx">malicious</span><span class="o">+</span><span class="s1">' FOUND'</span><span class="p">);</span>
   <span class="p">}</span>
   <span class="k">else</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">filename</span><span class="o">+</span><span class="s1">': OK'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">object</span><span class="o">+</span><span class="s1">': OK'</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">});</span>
 
 </pre></div>
 
 <p>will scan through the "directory" of a Linux machine and report any malicious files detected by ClamAV.</p>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">fs</span><span class="o">=</span><span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">clamav</span><span class="o">=</span><span class="nx">require</span><span class="p">(</span><span class="s1">'clamav.js'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">stream</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="s1">'&lt;file&gt;'</span><span class="p">);</span>
+<span class="nx">clamav</span><span class="p">.</span><span class="nx">createScanner</span><span class="p">(</span><span class="mi">3310</span><span class="p">,</span> <span class="s1">'127.0.0.1'</span><span class="p">).</span><span class="nx">scan</span><span class="p">(</span><span class="nx">stream</span>
+    <span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">object</span><span class="p">,</span> <span class="nx">malicious</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">path</span><span class="o">+</span><span class="s1">': '</span><span class="o">+</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">malicious</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">path</span><span class="o">+</span><span class="s1">': '</span><span class="o">+</span><span class="nx">malicious</span><span class="o">+</span><span class="s1">' FOUND'</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">path</span><span class="o">+</span><span class="s1">': OK'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+</pre></div>
+
+<p>will pass a stream of "file" on a Linux machine and report any malicious files detected by ClamAV.</p>
 
 <p>Additionally, to check the availability of the ClamAV daemon, use the following:</p>
 
@@ -87,7 +109,7 @@
 <h2>
 <a name="performance" class="anchor" href="#performance"><span class="octicon octicon-link"></span></a>Performance</h2>
 
-<p>The ClamAV.js library is implemented in an asynchronous way. That is supposed to perform better when I/O is the bottleneck.</p>
+<p>The ClamAV.js library is implemented in an asynchronous way by utilizing transform stream of node.js. That is supposed to perform better when I/O is the bottleneck.</p>
 
 <h2>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
