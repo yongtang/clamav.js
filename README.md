@@ -30,7 +30,7 @@ clamav.createScanner(3310, '127.0.0.1').scan('<directory>'
 will scan through the "directory" of a Linux machine and report any malicious files detected by ClamAV.
 
 ```js
-var fs=require('fs);
+var fs=require('fs');
 var clamav=require('clamav.js');
 
 var stream = fs.createReadStream('<file>');
