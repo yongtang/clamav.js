@@ -1,6 +1,6 @@
 {
   "name": "clamav.js",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "A node.js library for ClamAV.",
   "keywords": [
     "clamav.js",
@@ -19,9 +19,9 @@
     "type": "git",
     "url": "https://github.com/yotang/clamav.js.git"
   },
-  "author": "yotang",
+  "author": "yongtang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yotang/clamav.js/issues"
+    "url": "https://github.com/yongtang/clamav.js/issues"
   }
 }
