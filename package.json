@@ -23,5 +23,6 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/yongtang/clamav.js/issues"
-  }
+  },
+  "homepage": "https://github.com/yongtang/clamav.js"
 }
