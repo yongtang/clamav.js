@@ -88,4 +88,4 @@ The ClamAV.js library is provided under the MIT License.
 
 Contact
 -------
-If you have trouble with the library or have questions, check out the GitHub repository at http://github.com/yotang/clamav.js and I’ll help you sort it out.
+If you have trouble with the library or have questions, check out the GitHub repository at http://github.com/yongtang/clamav.js and I’ll help you sort it out.
