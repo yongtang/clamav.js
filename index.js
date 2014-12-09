@@ -69,6 +69,7 @@ clamavstreamscan = function(port, host, stream, complete, object, callback) {
     }
   }).on('error', function(err) {
     socket.destroy();
+    callback(err, object);
   }).on('close', function() {});
 }
 
