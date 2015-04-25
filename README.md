@@ -69,6 +69,25 @@ clamav.ping(3310, '127.0.0.1', 1000, function(err) {
 
 where the third parameter 1000 is the timeout in milliseconds.
 
+The version of the ClamAV daemon and the version of the definitions database could be obtained through:
+
+```js
+var clamav=require('clamav.js');
+
+clamav.version(3310, '127.0.0.1', 1000, function(err, version) {
+  if (err) {
+    console.log('Version is not available['+err+']');
+  }
+  else {
+    console.log('Version is ['+version+']');
+  }
+});
+
+```
+
+and the third parameter 1000 is the timeout in milliseconds.
+
+
 
 Installation
 -----------
