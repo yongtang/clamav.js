@@ -1,5 +1,5 @@
 [![view on npm](http://img.shields.io/npm/v/clamav.js.svg)](https://www.npmjs.org/package/clamav.js)
-[![view on npm](http://img.shields.io/npm/l/yongtang/clamav.js.svg)](https://www.npmjs.org/package/clamav.js)
+[![view on npm](http://img.shields.io/github/license/yongtang/clamav.js.svg)](https://www.npmjs.org/package/clamav.js)
 [![npm module downloads](http://img.shields.io/npm/dt/clamav.js.svg)](https://www.npmjs.org/package/clamav.js)
 
 ClamAV.js
