@@ -27,7 +27,6 @@ ClamAVChannel.prototype._transform = function(chunk, encoding, callback) {
 };
 ClamAVChannel.prototype._flush = function (callback) {
   var size = new Buffer(4);
-  size = new Buffer(4);
   size.writeInt32BE(0, 0);
   this.push(size);
 
