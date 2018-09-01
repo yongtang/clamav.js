@@ -39,6 +39,9 @@ clamavstreamscan = function(port, host, stream, complete, object, callback) {
   socket.connect(port, host, function() {
     var channel = new ClamAVChannel();
     stream.pipe(channel).pipe(socket).on('end', function() {
+      if (status === '') {
+        callback(new Error('No response received from ClamAV. Consider increasing MaxThreads in clamd.conf'), object);
+      }
       complete(stream);
     }).on('error', function(err) {
       callback(new Error(err), object);
